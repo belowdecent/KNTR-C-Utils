@@ -22,7 +22,7 @@ void move_peg(KNDS_Stack* from, KNDS_Stack* to) {
 
 #define EMPTY_PEG "    ┃    "
 void draw_pegs(KNDS_Stack* stacks) {
-	KNDS_StackNode* current_layers[3] = {
+	KNDS_ListNode* current_layers[3] = {
 		stacks[0].top, stacks[1].top, stacks[2].top,
 	};
 

@@ -1,7 +1,7 @@
 #include "KNDS_Stack.h"
 
 void* KNDS_StackPush(KNDS_Stack* stack, void* data) {
-  KNDS_StackNode* node = malloc(sizeof(KNDS_StackNode));
+  KNDS_ListNode* node = malloc(sizeof(KNDS_ListNode));
   node->data = data;
   node->next = stack->top;
 
@@ -21,10 +21,10 @@ KNDS_Result KNDS_StackInsert(KNDS_Stack* stack, size_t index, void* data) {
     return KNDS_ResultOK(data);
   }
 
-  KNDS_StackNode* target_node = malloc(sizeof(KNDS_StackNode));
+  KNDS_ListNode* target_node = malloc(sizeof(KNDS_ListNode));
   target_node->data = data;
 
-  KNDS_StackNode* back_node = stack->top;
+  KNDS_ListNode* back_node = stack->top;
   
   for (size_t i = 1; i < index; ++i) {
     back_node = back_node->next;
@@ -42,7 +42,7 @@ KNDS_Result KNDS_StackInsert(KNDS_Stack* stack, size_t index, void* data) {
 void* KNDS_StackPop(KNDS_Stack* stack) {
   void* popped_data = stack->top->data;
 
-  KNDS_StackNode* last = stack->top;
+  KNDS_ListNode* last = stack->top;
   stack->top = last->next;
   stack->length -= 1;
   free(last);
@@ -63,9 +63,9 @@ KNDS_Result KNDS_StackDelete(KNDS_Stack* stack, size_t index) {
 }
 
 void KNDS_StackFreeChildren(KNDS_Stack* stack) {
-  KNDS_StackNode* node = stack->top;
+  KNDS_ListNode* node = stack->top;
   while (node != NULL) {
-    KNDS_StackNode* last = node;
+    KNDS_ListNode* last = node;
     node = node->next;
 
     if (last->data != NULL) free(last->data);
@@ -74,9 +74,9 @@ void KNDS_StackFreeChildren(KNDS_Stack* stack) {
 }
 
 void KNDS_StackFreeNodes(KNDS_Stack* stack) {
-  KNDS_StackNode* node = stack->top;
+  KNDS_ListNode* node = stack->top;
   while (node != NULL) {
-    KNDS_StackNode* last = node;
+    KNDS_ListNode* last = node;
     node = node->next;
 
     free(last);

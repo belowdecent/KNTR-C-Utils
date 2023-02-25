@@ -3,14 +3,10 @@
 
 #include <stdlib.h>
 #include "../ErrorHandling/KNDS_Result.h"
-
-typedef struct KNDS_StackNode {
-  void* data;
-  struct KNDS_StackNode* next;
-} KNDS_StackNode;
+#include "KNDS_ListNode.h"
 
 typedef struct KNDS_Stack {
-	struct KNDS_StackNode* top;
+	KNDS_ListNode* top;
 	
 	size_t length;
 	size_t data_size;
