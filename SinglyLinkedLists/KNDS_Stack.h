@@ -24,5 +24,6 @@ void* KNDS_StackPop(KNDS_Stack* stack);
 KNDS_Result KNDS_StackDelete(KNDS_Stack* stack, size_t index);
 
 void KNDS_StackFreeChildren(KNDS_Stack* stack);
+void KNDS_StackFreeNodes(KNDS_Stack* stack);
 
 #endif

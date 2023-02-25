@@ -72,3 +72,13 @@ void KNDS_StackFreeChildren(KNDS_Stack* stack) {
     free(last);
   }
 }
+
+void KNDS_StackFreeNodes(KNDS_Stack* stack) {
+  KNDS_StackNode* node = stack->top;
+  while (node != NULL) {
+    KNDS_StackNode* last = node;
+    node = node->next;
+
+    free(last);
+  }
+}

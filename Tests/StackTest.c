@@ -7,56 +7,46 @@ void tower_of_hanoi() {
 	// system("clear");
 	printf("To move the top disk from one peg to another,\ntype the first and then the second peg\n");
 
-	const char* empty = "    ┃    ";
-	char* peg1  			= "   ▇▇▇   ";
-	char* peg2  			= "  ▇▇▇▇▇  ";
-	char* peg3  			= " ▇▇▇▇▇▇▇ ";
-	char* peg4  			= "▇▇▇▇▇▇▇▇▇";
+	char* pegs[5] = {
+		"    ┃    ",
+		"   ▇▇▇   ",
+		"  ▇▇▇▇▇  ",
+		" ▇▇▇▇▇▇▇ ",
+		"▇▇▇▇▇▇▇▇▇",
+	};
 
-	KNDS_Stack stack1 = {0};
-	KNDS_Stack stack2 = {0};
-	KNDS_Stack stack3 = {0};
+	KNDS_Stack stacks[3] = {
+		{0}, {0}, {0}
+	};
 
-	KNDS_StackPush(&stack1, peg4);	
-	KNDS_StackPush(&stack1, peg3);	
-	KNDS_StackPush(&stack1, peg2);	
-	KNDS_StackPush(&stack1, peg1);
+	KNDS_StackPush(&stacks[0], pegs[4]);	
+	KNDS_StackPush(&stacks[0], pegs[3]);	
+	KNDS_StackPush(&stacks[0], pegs[2]);	
+	KNDS_StackPush(&stacks[0], pegs[1]);
 
-	KNDS_StackPush(&stack2, KNDS_StackPop(&stack1));
-	KNDS_StackPush(&stack2, KNDS_StackPop(&stack1));
-
-	KNDS_StackNode* stack1_node = stack1.top;
-	KNDS_StackNode* stack2_node = stack2.top;
-	KNDS_StackNode* stack3_node = stack3.top;
+	KNDS_StackNode* current_layer[3] = {
+		stacks[0].top, stacks[1].top, stacks[2].top,
+	};
 
 	for (size_t i = 4; i > 0; --i) {
-		if (stack1.length < i || stack1_node == NULL) {
-			printf(" %s ", empty);
-		} else {
-			printf(" %s ", (char*)stack1_node->data);
-			stack1_node = stack1_node->next;
+		for (size_t i = 0; i < 3; ++i) {
+			if (stacks[i].length < i || current_layer[i] == NULL) {
+				printf(" %s ", pegs[0]);
+			} else {
+				printf(" %s ", (char*)current_layer[i]->data);
+				current_layer[i] = current_layer[i]->next;
+			}
 		}
-
-		if (stack2.length < i || stack2_node == NULL) {
-			printf(" %s ", empty);
-		} else {
-			printf(" %s ", (char*)stack2_node->data);
-			stack2_node = stack2_node->next;
-		}
-
-		if (stack3.length < i || stack3_node == NULL) {
-			printf(" %s\n", empty);
-		} else {
-			printf(" %s\n", (char*)stack3_node->data);
-			stack3_node = stack3_node->next;
-		}
+		printf("\n");
 	}
 
-	// TODO: Fix the goddamn FreeChildren function
+	KNDS_StackFreeNodes(&stacks[0]);
+	KNDS_StackFreeNodes(&stacks[1]);
+	KNDS_StackFreeNodes(&stacks[2]);
 }
 
 int main() {
-	printf("Stack usage!\n Pick a game:\n");
+	printf("Stack usage!\nPick a game:\n");
 	printf("1) Tower of Hanoi\n");	
 	tower_of_hanoi();
 }
