@@ -1,25 +1,42 @@
-#ifndef _KNDS_Stack
-#define _KNDS_Stack
+#ifndef _KNDS_STACK
+#define _KNDS_STACK
 
 #include <stdlib.h>
 #include "../ErrorHandling/KNDS_Result.h"
 #include "KNDS_ListNode.h"
 
+/* 
+Last-In First-Out (LIFO) data structure.
+Useful for stacks of things.
+Length is updated on each KNDS_StackPush/KNDS_StackPop call.
+*/
 typedef struct KNDS_Stack {
 	KNDS_ListNode* top;
-	
 	size_t length;
-	size_t data_size;
 } KNDS_Stack;
 
+/*
+Puts data on top of the stack, returns put data.
+*/
 void* KNDS_StackPush(KNDS_Stack* stack, void* data);
-KNDS_Result KNDS_StackInsert(KNDS_Stack* stack, size_t index, void* data);
 
-// These functions don't free memory of the data within them, be a good person
+/* 
+Frees the top node of the stack, returns data stored there.
+Does not free memory associated with the data.
+*/
 void* KNDS_StackPop(KNDS_Stack* stack);
-KNDS_Result KNDS_StackDelete(KNDS_Stack* stack, size_t index);
 
+
+/*
+Frees every node of the stack and the data stored there.
+Does not free the stack itself.
+*/
 void KNDS_StackFreeChildren(KNDS_Stack* stack);
+
+/*
+Frees every node of the stack.
+Does not free the stack itself.
+*/
 void KNDS_StackFreeNodes(KNDS_Stack* stack);
 
 #endif
