@@ -1,0 +1,7 @@
+CC = gcc
+ERROR_HANDLING_OBJS = ErrorHandling/KNDS_Result.c
+LINKED_LISTS_OBJS = SinglyLinkedLists/KNDS_Stack.c
+TESTS_OBJS = Tests/StackTest.c
+
+all: $(TESTS_OBJS) $(LINKED_LISTS_OBJS) $(ERROR_HANDLING_OBJS)
+	$(CC) -o builds/StackTest $(TESTS_OBJS) $(LINKED_LISTS_OBJS) $(ERROR_HANDLING_OBJS)
