@@ -8,10 +8,6 @@ struct peg {
 	char* visual;
 };
 
-// void move_peg(KNDS_Stack* from, KNDS_Stack* to) {
-//	if (from->top == NULL) return;/
-// }
-
 void move_peg(KNDS_Stack* from, KNDS_Stack* to) {
 	if (from->top == NULL) return;
 	struct peg* from_peg = from->top->data;
