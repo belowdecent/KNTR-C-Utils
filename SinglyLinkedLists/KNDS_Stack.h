@@ -4,7 +4,10 @@
 #include <stdlib.h>
 #include "../ErrorHandling/KNDS_Result.h"
 
-struct KNDS_StackNode;
+typedef struct KNDS_StackNode {
+  void* data;
+  struct KNDS_StackNode* next;
+} KNDS_StackNode;
 
 typedef struct KNDS_Stack {
 	struct KNDS_StackNode* top;

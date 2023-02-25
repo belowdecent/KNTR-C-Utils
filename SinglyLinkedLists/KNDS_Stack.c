@@ -1,10 +1,5 @@
 #include "KNDS_Stack.h"
 
-typedef struct KNDS_StackNode {
-  void* data;
-  struct KNDS_StackNode* next;
-} KNDS_StackNode;
-
 void* KNDS_StackPush(KNDS_Stack* stack, void* data) {
   KNDS_StackNode* node = malloc(sizeof(KNDS_StackNode));
   node->data = data;
@@ -49,6 +44,7 @@ void* KNDS_StackPop(KNDS_Stack* stack) {
 
   KNDS_StackNode* last = stack->top;
   stack->top = last->next;
+  stack->length -= 1;
   free(last);
   
   return popped_data;
