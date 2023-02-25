@@ -18,7 +18,6 @@ void move_peg(KNDS_Stack* from, KNDS_Stack* to) {
 	}
 	
 	KNDS_StackPush(to, KNDS_StackPop(from));
-	return;
 }
 
 #define EMPTY_PEG "    ┃    "
@@ -27,9 +26,9 @@ void draw_pegs(KNDS_Stack* stacks) {
 		stacks[0].top, stacks[1].top, stacks[2].top,
 	};
 
-	for (size_t counter = 4; counter > 0; --counter) {
+	for (size_t row = 4; row > 0; --row) {
 		for (size_t i = 0; i < 3; ++i) {
-			if (stacks[i].length < counter || current_layers[i] == NULL) {
+			if (stacks[i].length < row || current_layers[i] == NULL) {
 				printf(" %s ", EMPTY_PEG);
 			} else {
 				struct peg* layer_data = current_layers[i]->data;
@@ -46,36 +45,29 @@ void draw_pegs(KNDS_Stack* stacks) {
 #define TO_LABEL   "  to ↑     "
 #define NONE_LABEL "           "
 void draw_choice(char from, char to) {
-	if (from == 0) {
-		printf("%s", FROM_LABEL);
-		if (to == 1) {
-			printf("%s", TO_LABEL);
-			printf("%s", NONE_LABEL);
-		} else {
-			printf("%s", NONE_LABEL);
-			printf("%s", TO_LABEL);
-		}
-	}	else if (to == 0) {
-		printf("%s", TO_LABEL);
-		if (from == 1) {
-			printf("%s", FROM_LABEL);
-			printf("%s", NONE_LABEL);
-		} else {
-			printf("%s", NONE_LABEL);
-			printf("%s", FROM_LABEL);
-		}
-	} else {
-		printf("%s", NONE_LABEL);
-		if (from == 1) {
-			printf("%s", FROM_LABEL);
-			printf("%s", TO_LABEL);
-		} else {
-			printf("%s", NONE_LABEL);
-			printf("%s", TO_LABEL);
-		}
+	switch (from) {
+		case 0:
+			if (to == 1) {
+				printf("%s%s%s\n", FROM_LABEL, TO_LABEL, NONE_LABEL);
+			} else {
+				printf("%s%s%s\n", FROM_LABEL, NONE_LABEL, TO_LABEL);
+			}
+			break;
+		case 1:
+			if (to == 0) {
+				printf("%s%s%s\n", TO_LABEL, FROM_LABEL, NONE_LABEL);
+			} else {
+				printf("%s%s%s\n", NONE_LABEL, FROM_LABEL, TO_LABEL);
+			}
+			break;
+		case 2:
+			if (to == 0) {
+				printf("%s%s%s\n", TO_LABEL, NONE_LABEL, FROM_LABEL);
+			} else {
+				printf("%s%s%s\n", NONE_LABEL, TO_LABEL, FROM_LABEL);
+			}
+			break;
 	}
-
-	printf("\n");
 }
 
 void tower_of_hanoi() {
@@ -115,7 +107,9 @@ void tower_of_hanoi() {
 		draw_choice(from_id, to_id);
 
 		char buffer;
+	  system("/bin/stty raw");
 		char input = getchar();
+		system("/bin/stty cooked");
 		switch (input) {
 			case 'a':
 				buffer = from_id;
@@ -129,13 +123,29 @@ void tower_of_hanoi() {
 				break;
 			case 's':
 				move_peg(&stacks[from_id], &stacks[to_id]);
+				if (stacks[2].length == 4) goto hanoi_win;
 				break;
 			case 'q':
 				goto hanoi_end;
 		}
 	}
+
+	hanoi_win: {
+		system("clear");
+		draw_pegs(stacks);
+		printf("You won! Press q to quit\n");
+
+		for (;;) {
+		  system("/bin/stty raw");
+			char input = getchar();
+			system("/bin/stty cooked");
+
+			if (input == 'q') goto hanoi_end;
+		} 
+	}
 	
 	hanoi_end: {
+		system("clear");
 		KNDS_StackFreeNodes(&stacks[0]);
 		KNDS_StackFreeNodes(&stacks[1]);
 		KNDS_StackFreeNodes(&stacks[2]);
