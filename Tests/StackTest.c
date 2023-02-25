@@ -3,20 +3,42 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+struct peg {
+	size_t value;
+	char* visual;
+};
+
+// void move_peg(KNDS_Stack* from, KNDS_Stack* to) {
+//	if (from->top == NULL) return;/
+// }
+
+void move_peg(KNDS_Stack* from, KNDS_Stack* to) {
+	if (from->top == NULL) return;
+	struct peg* from_peg = from->top->data;
+
+	if (to->top != NULL) {
+		struct peg* to_peg = to->top->data;
+		if (from_peg->value > to_peg->value) return;
+	}
+	
+	KNDS_StackPush(to, KNDS_StackPop(from));
+	return;
+}
 
 #define EMPTY_PEG "    ┃    "
 void draw_pegs(KNDS_Stack* stacks) {
-	KNDS_StackNode* current_layer[3] = {
+	KNDS_StackNode* current_layers[3] = {
 		stacks[0].top, stacks[1].top, stacks[2].top,
 	};
-	
-	for (size_t i = 4; i > 0; --i) {
-		for (size_t j = 0; j < 3; ++j) {
-			if (stacks[j].length < i || current_layer[j] == NULL) {
+
+	for (size_t counter = 4; counter > 0; --counter) {
+		for (size_t i = 0; i < 3; ++i) {
+			if (stacks[i].length < counter || current_layers[i] == NULL) {
 				printf(" %s ", EMPTY_PEG);
 			} else {
-				printf(" %s ", (char*)current_layer[j]->data);
-				current_layer[j] = current_layer[j]->next;
+				struct peg* layer_data = current_layers[i]->data;
+				printf(" %s ", layer_data->visual);
+				current_layers[i] = current_layers[i]->next;
 			}
 		}
 		printf("\n");
@@ -64,46 +86,53 @@ void tower_of_hanoi() {
 	// system("clear");
 	printf("To move the top disk from one peg to another,\ntype the first and then the second peg\n");
 
-	char* pegs[4] = {
-		"   ▇▇▇   ",
-		"  ▇▇▇▇▇  ",
-		" ▇▇▇▇▇▇▇ ",
-		"▇▇▇▇▇▇▇▇▇",
+	struct peg pegs[4] = {
+		{0}, {0}, {0}, {0}
 	};
 
-	char from_choice = 0;
-	char to_choice   = 1;
-	char free_choice = 2;
+	pegs[0].value = 1;
+	pegs[1].value = 2;
+	pegs[2].value = 3;
+	pegs[3].value = 4;
+
+	pegs[0].visual = "   ▇▇▇   ";
+	pegs[1].visual = "  ▇▇▇▇▇  ";
+	pegs[2].visual = " ▇▇▇▇▇▇▇ ";
+	pegs[3].visual = "▇▇▇▇▇▇▇▇▇";
+
+	char from_id = 0;
+	char to_id   = 1;
+	char free_id = 2;
 
 	KNDS_Stack stacks[3] = {
 		{0}, {0}, {0}
 	};
 
-	KNDS_StackPush(&stacks[0], pegs[3]);	
-	KNDS_StackPush(&stacks[0], pegs[2]);	
-	KNDS_StackPush(&stacks[0], pegs[1]);	
-	KNDS_StackPush(&stacks[0], pegs[0]);
+	KNDS_StackPush(&stacks[0], &pegs[3]);	
+	KNDS_StackPush(&stacks[0], &pegs[2]);	
+	KNDS_StackPush(&stacks[0], &pegs[1]);	
+	KNDS_StackPush(&stacks[0], &pegs[0]);
 	
 	for (;;) {
 		system("clear");
 		draw_pegs(stacks);
-		draw_choice(from_choice, to_choice);
+		draw_choice(from_id, to_id);
 
 		char buffer;
 		char input = getchar();
 		switch (input) {
 			case 'a':
-				buffer = from_choice;
-				from_choice = free_choice;
-				free_choice = buffer;
+				buffer = from_id;
+				from_id = free_id;
+				free_id = buffer;
 				break;
 			case 'd':
-				buffer = to_choice;
-				to_choice = free_choice;
-				free_choice = buffer;
+				buffer = to_id;
+				to_id = free_id;
+				free_id = buffer;
 				break;
 			case 's':
-				KNDS_StackPush(&stacks[to_choice], KNDS_StackPop(&stacks[from_choice]));
+				move_peg(&stacks[from_id], &stacks[to_id]);
 				break;
 			case 'q':
 				goto hanoi_end;
