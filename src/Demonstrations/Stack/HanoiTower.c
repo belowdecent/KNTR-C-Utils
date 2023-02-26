@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 typedef struct peg {
 	size_t value;
 	char* visual;

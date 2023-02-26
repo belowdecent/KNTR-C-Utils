@@ -1,4 +1,4 @@
-#include "Stack/HanoiTower.h"
+#include "Demonstrations/Stack/HanoiTower.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -8,7 +8,7 @@ int main() {
 	printf("1) Tower of Hanoi\n");
 
 	for (;;) {
-		if (hanoi_tower()) break;
+		if (hanoi_tower() == 0) break;
 	}
 
 	return EXIT_SUCCESS;
