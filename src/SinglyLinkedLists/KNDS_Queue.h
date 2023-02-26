@@ -28,17 +28,4 @@ Does not free memory associated with the data.
 */
 void* KNDS_QueuePop(KNDS_Queue* queue);
 
-
-/*
-Frees every node of the queue and the data stored there.
-Does not free the queue itself.
-*/
-void KNDS_QueueFreeChildren(KNDS_Queue* queue);
-
-/*
-Frees every node of the queue.
-Does not free the queue itself.
-*/
-void KNDS_QueueFreeNodes(KNDS_Queue* queue);
-
 #endif

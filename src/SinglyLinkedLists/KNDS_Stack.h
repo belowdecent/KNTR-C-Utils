@@ -2,7 +2,7 @@
 #define _KNDS_STACK
 
 #include <stdlib.h>
-#include "../ErrorHandling/KNDS_Result.h"
+
 #include "KNDS_ListNode.h"
 
 /* 
@@ -27,16 +27,5 @@ Does not free memory associated with the data.
 void* KNDS_StackPop(KNDS_Stack* stack);
 
 
-/*
-Frees every node of the stack and the data stored there.
-Does not free the stack itself.
-*/
-void KNDS_StackFreeChildren(KNDS_Stack* stack);
-
-/*
-Frees every node of the stack.
-Does not free the stack itself.
-*/
-void KNDS_StackFreeNodes(KNDS_Stack* stack);
 
 #endif

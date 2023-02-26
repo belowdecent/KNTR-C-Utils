@@ -146,9 +146,9 @@ void tower_of_hanoi() {
 	
 	hanoi_end: {
 		system("clear");
-		KNDS_StackFreeNodes(&stacks[0]);
-		KNDS_StackFreeNodes(&stacks[1]);
-		KNDS_StackFreeNodes(&stacks[2]);
+		KNDS_ListFree(stacks[0].top);
+		KNDS_ListFree(stacks[1].top);
+		KNDS_ListFree(stacks[2].top);
 	}
 }
 
