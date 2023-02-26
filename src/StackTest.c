@@ -1,4 +1,4 @@
-#include "Demonstrations/Stack/HanoiTower.h"
+#include "Demos/Stack/HanoiTower.h"
 
 #include <stdlib.h>
 #include <stdio.h>
