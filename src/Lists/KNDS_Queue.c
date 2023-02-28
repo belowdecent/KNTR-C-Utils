@@ -30,3 +30,29 @@ void* KNDS_QueuePop(KNDS_Queue* queue) {
 	
 	return data;
 }
+
+KNDS_Queue KNDS_QueueMerge(KNDS_Queue* front_queue, KNDS_Queue* back_queue) {
+	KNDS_Queue queue = {0};
+
+	KNDS_ListNode* current_node = front_queue->front;
+	while (current_node != NULL) {
+		KNDS_QueuePush(&queue, current_node->data);
+		current_node = current_node->next;
+	}
+
+	current_node = back_queue->front;
+	while (current_node != NULL) {
+		KNDS_QueuePush(&queue, current_node->data);
+		current_node = current_node->next;
+	}
+
+	return queue;
+}
+
+void KNDS_QueueMergeInplace(KNDS_Queue* front_queue, KNDS_Queue* back_queue) {
+	front_queue->length += back_queue->length;	
+	front_queue->back->next = back_queue->front;
+	front_queue->back = back_queue->back;
+
+	return;
+}

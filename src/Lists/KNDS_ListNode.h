@@ -7,6 +7,12 @@ typedef struct KNDS_ListNode {
 } KNDS_ListNode;
 
 /*
+Creates a list node with the following data and next values.
+*/
+KNDS_ListNode* KNDS_ListNodeNew(void* data, KNDS_ListNode* next);
+
+
+/*
 Frees this node and every node that comes after.
 Does not free the data stored within nodes.
 Free queues from the "front", stacks from the "top"
@@ -20,18 +26,18 @@ Free queues from the "front", stacks from the "top"
 void KNDS_ListDestroy(KNDS_ListNode* head);
 
 /*
-Returns the length of a list starting from head
+Returns the last element of the list;
 */
-int KNDS_ListLength(KNDS_ListNode* head);
-KNDS_ListNode* KNDS_ListGetLast(KNDS_ListNode* last);
+KNDS_ListNode* KNDS_ListGetLast(KNDS_ListNode* list);
 
-/*
-Creates a list node with the following data and next values.
-*/
-KNDS_ListNode* KNDS_ListNodeNew(void* data, KNDS_ListNode* next);
 /*
 Clones the target node and each of the following nodes, forming a new list.
 */
 KNDS_ListNode* KNDS_ListClone(KNDS_ListNode* node);
+
+/*
+Returns the length of a list starting from head
+*/
+int KNDS_ListLength(KNDS_ListNode* head);
 
 #endif

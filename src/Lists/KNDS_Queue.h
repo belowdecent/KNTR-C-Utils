@@ -28,4 +28,14 @@ Does not free memory associated with the data.
 */
 void* KNDS_QueuePop(KNDS_Queue* queue);
 
+/*
+Creates a new queue
+*/
+KNDS_Queue KNDS_QueueMerge(KNDS_Queue* front_queue, KNDS_Queue* back_queue);
+
+/*
+Links the last node of the top stack to the first node of the bottom stack.
+Modifying the nodes inside the bottom stack will change the top stack, but will not update the length.
+*/
+void KNDS_QueueMergeInplace(KNDS_Queue* front_queue, KNDS_Queue* back_queue);
 #endif
