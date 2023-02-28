@@ -26,6 +26,15 @@ Does not free memory associated with the data.
 */
 void* KNDS_StackPop(KNDS_Stack* stack);
 
+/*
+Creates a new stack consisting of all the top elements, followed by bottom elements.
+Resulting stack does not share any nodes between the top and bottom, sharing only data withing them.
+*/
+KNDS_Stack KNDS_StackMerge(KNDS_Stack* top, KNDS_Stack* bottom);
 
-
+/*
+Links the last node of the top stack to the first node of the bottom stack.
+Modifying the nodes inside the bottom stack will change the top stack, but will not update the length.
+*/
+void KNDS_StackMergeInplace(KNDS_Stack* top, KNDS_Stack* bottom);
 #endif

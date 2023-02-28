@@ -19,4 +19,19 @@ Free queues from the "front", stacks from the "top"
 */
 void KNDS_ListDestroy(KNDS_ListNode* head);
 
+/*
+Returns the length of a list starting from head
+*/
+int KNDS_ListLength(KNDS_ListNode* head);
+KNDS_ListNode* KNDS_ListGetLast(KNDS_ListNode* last);
+
+/*
+Creates a list node with the following data and next values.
+*/
+KNDS_ListNode* KNDS_ListNodeNew(void* data, KNDS_ListNode* next);
+/*
+Clones the target node and each of the following nodes, forming a new list.
+*/
+KNDS_ListNode* KNDS_ListClone(KNDS_ListNode* node);
+
 #endif
