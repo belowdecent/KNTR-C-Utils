@@ -1,6 +1,8 @@
 #ifndef _KNDS_LIST_NODE
 #define _KNDS_LIST_NODE
 
+#include <stdlib.h>
+
 typedef struct KNDS_ListNode {
 	void* data;
 	struct KNDS_ListNode* next;	
@@ -31,13 +33,17 @@ Returns the last element of the list;
 KNDS_ListNode* KNDS_ListGetLast(KNDS_ListNode* list);
 
 /*
+*/
+KNDS_ListNode* KNDS_ListGetNode(KNDS_ListNode* list, size_t position);
+
+/*
 Clones the target node and each of the following nodes, forming a new list.
 */
-KNDS_ListNode* KNDS_ListClone(KNDS_ListNode* node);
+KNDS_ListNode* KNDS_ListClone(const KNDS_ListNode* node);
 
 /*
 Returns the length of a list starting from head
 */
-int KNDS_ListLength(KNDS_ListNode* head);
+int KNDS_ListLength(const KNDS_ListNode* head);
 
 #endif

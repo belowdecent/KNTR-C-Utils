@@ -22,7 +22,7 @@ void KNDS_ListDestroy(KNDS_ListNode* head) {
   }
 }
 
-int KNDS_ListLength(KNDS_ListNode* head) {
+int KNDS_ListLength(const KNDS_ListNode* head) {
   int length = 0;
   while (head != NULL) {
     length += 1;
@@ -41,6 +41,15 @@ KNDS_ListNode* KNDS_ListGetLast(KNDS_ListNode* node) {
   return node;
 }
 
+KNDS_ListNode* KNDS_ListGetNode(KNDS_ListNode* node, size_t position) {
+  for (unsigned int i = 0; i < position; ++i) {
+    if (node == NULL) return NULL;
+    node = node->next;
+  }
+  
+  return node;
+}
+
 KNDS_ListNode* KNDS_ListNodeNew(void* data, KNDS_ListNode* next) {
   KNDS_ListNode* node = malloc(sizeof(KNDS_ListNode));
   node->data = data;
@@ -48,7 +57,7 @@ KNDS_ListNode* KNDS_ListNodeNew(void* data, KNDS_ListNode* next) {
   return node;
 }
 
-KNDS_ListNode* KNDS_ListClone(KNDS_ListNode* node) {
+KNDS_ListNode* KNDS_ListClone(const KNDS_ListNode* node) {
   if (node == NULL)
     return NULL;
 

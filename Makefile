@@ -12,6 +12,9 @@ build/%.o: src/%.c
 folders:
 	mkdir -p build/Lists
 	mkdir -p build/Demos/Stack
+	mkdir -p build/Tests
+
+build/Tests/ListTests.o:		$(LISTS_OBJ)
 
 build/StackTest.o:              build/Demos/Stack/HanoiTower.o
 build/Demos/Stack/HanoiTower.o: build/Lists/KNDS_Stack.o
@@ -20,8 +23,10 @@ build/Lists/KNDS_Stack.o:       build/Lists/KNDS_ListNode.o
 build/Lists/KNDS_Queue.o:       build/Lists/KNDS_ListNode.o
 
 all: folders build/StackTest.o
-	gcc $(OBJS) -o build/StackTest
+	gcc $(OBJS) -o tests/StackTest
+
+tests: build/Tests/ListTests.o
+	gcc -g -O1 build/Tests/ListTests.o $(LISTS_OBJ) -o tests/ListTests
 
 clean:
 	rm -rf ./build/*
-	rm -rf ./lib/*

@@ -31,7 +31,10 @@ void* KNDS_QueuePop(KNDS_Queue* queue) {
 	return data;
 }
 
-KNDS_Queue KNDS_QueueMerge(KNDS_Queue* front_queue, KNDS_Queue* back_queue) {
+KNDS_Queue KNDS_QueueMerge(
+	const KNDS_Queue* front_queue, 
+	const KNDS_Queue* back_queue
+) {
 	KNDS_Queue queue = {0};
 
 	KNDS_ListNode* current_node = front_queue->front;

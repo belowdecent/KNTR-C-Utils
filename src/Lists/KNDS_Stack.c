@@ -23,27 +23,26 @@ void* KNDS_StackPop(KNDS_Stack* stack) {
   return popped_data;
 }
 
-KNDS_Stack KNDS_StackMerge(
-  KNDS_Stack* top_stack, 
-  KNDS_Stack* bottom_stack
+KNDS_Stack* KNDS_StackMerge(
+  const KNDS_Stack* top_stack, 
+  const KNDS_Stack* bottom_stack
 ) {
   KNDS_ListNode* current_node = top_stack->top;
+  KNDS_Stack* stack = malloc(sizeof(KNDS_Stack));
 
   if (current_node == NULL) {
-    KNDS_Stack stack = {
-      .top = KNDS_ListClone(bottom_stack->top),
-      .length = bottom_stack->length
-    };
+    stack->top = KNDS_ListClone(bottom_stack->top);
+    stack->length = bottom_stack->length;
     return stack;
   }
 
-  KNDS_Stack stack = {
-    .top = KNDS_ListNodeNew(current_node->data, NULL),
-    .length = top_stack->length + bottom_stack->length
-  };
+  stack->length = top_stack->length + bottom_stack->length;
   
   KNDS_ListNode* cloned_node = KNDS_ListNodeNew(current_node->data, NULL);
   KNDS_ListNode* last_cloned_node = cloned_node;
+
+  stack->top = last_cloned_node;
+  
   current_node = current_node->next;
 
   while (current_node != NULL) {
