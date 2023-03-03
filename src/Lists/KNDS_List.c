@@ -1,22 +1,24 @@
 #include "KNDS_List.h"
 #include <stdlib.h>
 
-void KNDS_ListFree(KNDS_List* list, void(*data_function)(void*)) {
-  if (*data_function == NULL) {
-    while (list != NULL) {
-      KNDS_List* last_node = list;
-      list = list->next;
+void KNDS_ListFree(KNDS_List* list) {
+  while (list != NULL) {
+    KNDS_List* last_node = list;
+    list = list->next;
 
-      free(last_node);
-    }
-  } else {
-    while (list != NULL) {
-      KNDS_List* last_node = list;
-      list = list->next;
+    free(last_node);
+  }
+}
 
-      data_function(last_node->data);
-      free(last_node);
-    }
+void KNDS_ListDestroy(KNDS_List* list) {
+  while (list != NULL) {
+    KNDS_List* last_node = list;
+    list = list->next;
+
+    if (last_node->data != NULL)
+      free(last_node->data);
+
+    free(last_node);
   }
 }
 

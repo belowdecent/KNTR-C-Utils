@@ -57,7 +57,7 @@ void ShrinkExpand(STACK* stack, size_t length) {
 		copy_node  = copy_node->next;
 	}
 
-	KNDS_ListFree(stack_copy->top, free);
+	KNDS_ListDestroy(stack_copy->top);
 	free(stack_copy);
 	
 	free(popped_numbers);
@@ -95,8 +95,8 @@ void Merge(STACK* stack1, STACK* stack2) {
 		copy_node  = copy_node->next;
 	}
 
-	KNDS_ListFree(merged->top, NULL);
-	KNDS_ListFree(copy1->top, NULL);
+	KNDS_ListFree(merged->top);
+	KNDS_ListFree(copy1->top);
 	free(merged);
 	free(copy1);
 }
@@ -108,8 +108,8 @@ int main() {
 		ShrinkExpand(stack, 1);
 		ShrinkExpand(stack2, 1);
 		Merge(stack, stack2);
-		KNDS_ListFree(stack->top, free);
-		KNDS_ListFree(stack2->top, free);
+		KNDS_ListDestroy(stack->top);
+		KNDS_ListDestroy(stack2->top);
 		free(stack);
 		free(stack2);
 	}
