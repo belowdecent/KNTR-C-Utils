@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#include "KNDS_ListNode.h"
+#include "KNDS_List.h"
 
 /* 
 First-In First-Out (FIFO) data structure.
@@ -11,8 +11,8 @@ Useful for queues.
 Length is updated on each KNDS_QueuePush/KNDS_QueuePop call.
 */
 typedef struct KNDS_Queue {
-	KNDS_ListNode* front;
-	KNDS_ListNode* back;
+	KNDS_List* front;
+	KNDS_List* back;
 
 	size_t length;
 } KNDS_Queue;

@@ -1,7 +1,7 @@
 #include "KNDS_Queue.h"
 
 void* KNDS_QueuePush(KNDS_Queue* queue, void* data) {
-	KNDS_ListNode* node = malloc(sizeof(KNDS_ListNode));
+	KNDS_List* node = malloc(sizeof(KNDS_List));
 	node->data = data;
 	
 	if (queue->back == NULL) {
@@ -21,7 +21,7 @@ void* KNDS_QueuePop(KNDS_Queue* queue) {
 
 	void* data = queue->front->data;
 
-	KNDS_ListNode* last_front = queue->front;
+	KNDS_List* last_front = queue->front;
 	queue->front = queue->front->next;
 	queue->length -= 1;
 	free(last_front);
@@ -37,7 +37,7 @@ KNDS_Queue KNDS_QueueMerge(
 ) {
 	KNDS_Queue queue = {0};
 
-	KNDS_ListNode* current_node = front_queue->front;
+	KNDS_List* current_node = front_queue->front;
 	while (current_node != NULL) {
 		KNDS_QueuePush(&queue, current_node->data);
 		current_node = current_node->next;

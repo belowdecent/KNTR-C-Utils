@@ -19,13 +19,17 @@ build/Tests/ListTests.o:		$(LISTS_OBJ)
 build/StackTest.o:              build/Demos/Stack/HanoiTower.o
 build/Demos/Stack/HanoiTower.o: build/Lists/KNDS_Stack.o
 
-build/Lists/KNDS_Stack.o:       build/Lists/KNDS_ListNode.o
-build/Lists/KNDS_Queue.o:       build/Lists/KNDS_ListNode.o
+build/Lists/KNDS_Stack.o:       build/Lists/KNDS_List.o
+build/Lists/KNDS_Queue.o:       build/Lists/KNDS_List.o
 
 all: folders build/StackTest.o
-	gcc $(OBJS) -o tests/StackTest
+	gcc build/StackTest.o \
+		build/Demos/Stack/HanoiTower.o \
+		build/Lists/KNDS_Stack.o \
+		build/Lists/KNDS_List.o \
+		-o release/StackTest
 
-tests: build/Tests/ListTests.o
+tests: folders build/Tests/ListTests.o
 	gcc -g -O1 build/Tests/ListTests.o $(LISTS_OBJ) -o tests/ListTests
 
 clean:

@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#include "KNDS_ListNode.h"
+#include "KNDS_List.h"
 
 /* 
 Last-In First-Out (LIFO) data structure.
@@ -11,7 +11,7 @@ Useful for stacks of things.
 Length is updated on each KNDS_StackPush/KNDS_StackPop call.
 */
 typedef struct KNDS_Stack {
-	KNDS_ListNode* top;
+	KNDS_List* top;
 	size_t length;
 } KNDS_Stack;
 

@@ -5,7 +5,7 @@
 
 #define STACK KNDS_Stack
 #define QUEUE KNDS_Queue
-#define NODE  KNDS_ListNode
+#define NODE  KNDS_List
 
 int* CreateListData(int value);
 STACK* CreateStack(int value_start, int length);
@@ -63,7 +63,7 @@ void ShrinkExpand(STACK* stack, size_t length) {
 	free(popped_numbers);
 }
 
-void MergeUnmerge(STACK* stack1, STACK* stack2) {
+void Merge(STACK* stack1, STACK* stack2) {
 	STACK* merged = KNDS_StackMerge(stack1, stack2);
 
 	STACK* copy1 = malloc(sizeof(STACK));
@@ -107,10 +107,14 @@ int main() {
 		STACK* stack2 = CreateStack(50, 100);
 		ShrinkExpand(stack, 1);
 		ShrinkExpand(stack2, 1);
-		MergeUnmerge(stack, stack2);
+		Merge(stack, stack2);
 		KNDS_ListDestroy(stack->top);
 		KNDS_ListDestroy(stack2->top);
 		free(stack);
 		free(stack2);
 	}
 }
+
+#undef STACK
+#undef QUEUE
+#undef NODE 
