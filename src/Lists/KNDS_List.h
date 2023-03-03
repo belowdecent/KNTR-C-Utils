@@ -15,15 +15,9 @@ KNDS_List* KNDS_ListNew(void* data, KNDS_List* next);
 
 
 /*
-Frees this list.
-Does not free the data stored within nodes.
+Frees this list, applies a data function to the data.
 */
-void KNDS_ListFree(KNDS_List* head);
-
-/*
-Frees this list along with the stored data.
-*/
-void KNDS_ListDestroy(KNDS_List* head);
+void KNDS_ListFree(KNDS_List* head, void (*data_function)(void*));
 
 /*
 Returns the last element of the list;
@@ -40,12 +34,6 @@ Does not share nodes with the original list.
 Shares the data with the original list.
 */
 KNDS_List* KNDS_ListClone(const KNDS_List* list);
-
-/*
-Creates a deep copy of the list.
-Does not share nodes or data with the original list.
-*/
-KNDS_List* KNDS_ListCopy(const KNDS_List* list, size_t data_size);
 
 /*
 Returns the length of a list starting from head

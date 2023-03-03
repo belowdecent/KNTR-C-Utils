@@ -1,55 +1,57 @@
-#ifndef _KNDS_LIST_NODE
-#define _KNDS_LIST_NODE
+#ifndef _KNDS_DLIST_NODE
+#define _KNDS_DLIST_NODE
 
 #include <stdlib.h>
 
-typedef struct KNDS_DListNode {
+typedef struct KNDS_DList {
 	void* data;
-	struct KNDS_DListNode* next;	
-	struct KNDS_DListNode* prev;	
-} KNDS_DListNode;
+	struct KNDS_DList* next;	
+	struct KNDS_DList* prev;	
+} KNDS_DList;
 
 /*
 Creates a list node with the following data and next values.
 */
-KNDS_DListNode* KNDS_DListNodeNew(void* data, 
-	KNDS_DListNode* next, KNDS_DListNode* prev);
-
+KNDS_DList* KNDS_DListNew(void* data, 
+	KNDS_DList* next, KNDS_DList* prev);
 
 /*
 Frees this node and every connected node.
 Does not free the data stored within nodes.
 */
-void KNDS_DListFree(KNDS_DListNode* node);
+void KNDS_DListFree(KNDS_DList* node);
 
 /*
 Frees this node and every connected node along with the stored data.
 Free queues from the "front", stacks from the "top"
 */
-void KNDS_DListDestroy(KNDS_DListNode* node);
+void KNDS_DListDestroy(KNDS_DList* node);
 
 /*
 Returns the first element of the list;
 */
-KNDS_DListNode* KNDS_DListGetFirst(KNDS_DListNode* list);
+KNDS_DList* KNDS_DListGetFirst(KNDS_DList* list);
 
 /*
 Returns the last element of the list;
 */
-KNDS_DListNode* KNDS_DListGetLast(KNDS_DListNode* list);
+KNDS_DList* KNDS_DListGetLast(KNDS_DList* list);
 
 /*
 */
-KNDS_DListNode* KNDS_DListGetNode(KNDS_DListNode* list, int relative_position);
+KNDS_DList* KNDS_DListGetNode(KNDS_DList* list, int relative_position);
 
 /*
-Clones the target node and each of the following nodes, forming a new list.
+Creates a shallow copy of the list!
 */
-KNDS_DListNode* KNDS_DListClone(const KNDS_DListNode* node);
+KNDS_DList* KNDS_DListClone(const KNDS_DList* node);
+
+/*
+*/
 
 /*
 Returns the length of the list
 */
-int KNDS_DListLength(const KNDS_DListNode* head);
+int KNDS_DListLength(const KNDS_DList* head);
 
 #endif
