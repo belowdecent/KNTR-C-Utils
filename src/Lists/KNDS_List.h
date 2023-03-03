@@ -18,12 +18,7 @@ KNDS_List* KNDS_ListNew(void* data, KNDS_List* next);
 Frees this list.
 Does not free the data stored within nodes.
 */
-void KNDS_ListFree(KNDS_List* head);
-
-/*
-Frees this list along with the stored data.
-*/
-void KNDS_ListDestroy(KNDS_List* head);
+void KNDS_ListFree(KNDS_List* head, void (*data_function)(void*));
 
 /*
 Returns the last element of the list;
