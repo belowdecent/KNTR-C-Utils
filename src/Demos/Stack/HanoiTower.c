@@ -152,9 +152,9 @@ int hanoi_tower() {
 	
 	hanoi_end: {
 		system("clear");
-		KNDS_ListFree(stacks[0].top);
-		KNDS_ListFree(stacks[1].top);
-		KNDS_ListFree(stacks[2].top);
+		KNDS_ListFree(stacks[0].top, NULL);
+		KNDS_ListFree(stacks[1].top, NULL);
+		KNDS_ListFree(stacks[2].top, NULL);
 
 		return return_code;
 	}
